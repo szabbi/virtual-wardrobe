@@ -1,0 +1,103 @@
+:root {
+	background: linear-gradient(45deg, rgb(252, 231, 200), rgb(219, 169, 121));
+}
+
+.mainContainer {
+	display: flex;
+	height: 100vh;
+	width: 100vw;
+}
+
+.leftSideContainer,
+.rightSideContainer {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	width: 50%;
+}
+
+.promotionText {
+	color: rgb(232, 239, 207);
+	text-shadow: 3px 3px 20px rgba(0, 0, 0, 0.3);
+	font-size: 3rem;
+	margin-bottom: 4vh;
+}
+
+.highlightedText {
+	color: rgb(177, 194, 158);
+}
+
+.wardrobeImage {
+	box-shadow: 30px 30px 30px rgba(0, 0, 0, 0.3);
+	width: 40vw;
+	height: auto;
+	border-radius: 20px;
+}
+
+.formContainer {
+	background: rgb(177, 194, 158);
+	box-shadow: 30px 30px 30px rgba(0, 0, 0, 0.3);
+	border-radius: 20px;
+	width: 30vw;
+	height: 80vh;
+}
+
+.signInText {
+	color: rgb(232, 239, 207);
+	text-shadow: 3px 3px 20px rgba(0, 0, 0, 0.3);
+	font-size: 4rem;
+	margin: 3vh;
+}
+
+.inputField {
+	background-color: rgb(232, 239, 207);
+	border: 2px solid rgb(0, 0, 0);
+	border-radius: 20px;
+	width: 60%;
+	font-size: 1rem;
+	margin: 2vh;
+	padding: 2.5vh 1vw;
+}
+
+.inputField:focus,
+.inputField:hover {
+	background-color: rgba(0, 0, 0, 0.1);
+}
+
+.inputField::placeholder {
+	color: rgb(0, 0, 0);
+}
+
+.accountManagementTextContainer {
+	display: flex;
+	justify-content: space-between;
+	margin: 1vh 2vw;
+}
+
+.accountManagementText {
+	color: rgb(0, 0, 0);
+	text-decoration: none;
+	font-size: 1.2rem;
+	font-weight: 400;
+}
+
+.accountManagementText:hover {
+	color: rgb(232, 239, 207);
+}
+
+.submitButton {
+	background-color: rgb(232, 239, 207);
+	border: 2px solid rgb(0, 0, 0);
+	border-radius: 20px;
+	cursor: pointer;
+	font-size: 2rem;
+	width: 40%;
+	padding: 10px;
+	margin-top: 8vh;
+}
+
+.submitButton:hover {
+	background-color: rgba(0, 0, 0, 0.1);
+}
