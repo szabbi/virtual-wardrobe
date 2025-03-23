@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 import org.springframework.context.annotation.Bean;
 import org.springframework.ui.ModelMap;
 
-@SpringBootApplication(exclude = SecurityAutoConfiguration.class)
+@SpringBootApplication
 public class VirtualWardrobeApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(VirtualWardrobeApplication.class, args);

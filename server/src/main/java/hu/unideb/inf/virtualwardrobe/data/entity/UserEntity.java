@@ -4,13 +4,18 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-@Entity
-@Table(name = "user")
+import java.util.Collection;
+import java.util.Collections;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserEntity {
+@Entity
+@Table(name = "user")
+public class UserEntity implements UserDetails {
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
@@ -28,4 +33,12 @@ public class UserEntity {
     @Column(name = "password", nullable = false)
     private String password;
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Collections.emptyList();
+    }
+    @Override
+    public String getUsername() {
+        return email;
+    }
 }

@@ -1,7 +1,6 @@
 package hu.unideb.inf.virtualwardrobe.data.repository;
 
 import hu.unideb.inf.virtualwardrobe.data.entity.UserEntity;
-import org.apache.catalina.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
