@@ -3,14 +3,18 @@ package hu.unideb.inf.virtualwardrobe.controller;
 import hu.unideb.inf.virtualwardrobe.service.AuthService;
 import hu.unideb.inf.virtualwardrobe.service.dto.LoginDto;
 import hu.unideb.inf.virtualwardrobe.service.dto.RegistrationDto;
+import hu.unideb.inf.virtualwardrobe.service.implementation.JwtAuthServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
 
 @RestController
 @RequestMapping("/auth")
@@ -18,6 +22,8 @@ public class AuthController {
 
     @Autowired
     AuthService authService;
+    @Autowired
+    JwtAuthServiceImpl jwtAuthService;
 
     @PostMapping("/registration")
     public ResponseEntity<?> registration(@Valid @RequestBody RegistrationDto dto) {
@@ -30,11 +36,43 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@Valid @RequestBody LoginDto dto) {
+    public ResponseEntity<String> login(@Valid @RequestBody LoginDto dto, @CookieValue(name = "jwt", required = false) String cookie) {
+        if (cookie != null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Already logged in.");
+        }
         try {
-            return ResponseEntity.ok(authService.login(dto));
+            String token = authService.login(dto);
+
+            ResponseCookie jwtCookie = ResponseCookie.from("jwt", token)
+                    .httpOnly(true)
+                    .path("/")
+                    .maxAge(15*60)
+                    .sameSite("Strict")
+                    .build();
+
+            return ResponseEntity.ok()
+                    .header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
+                    .body("Successful login.");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<String> logout(@CookieValue(name = "jwt", required = false) String cookie) {
+        if (cookie == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not logged in.");
+        }
+
+        ResponseCookie deleteCookieAfterLogout = ResponseCookie.from("jwt", "")
+                .httpOnly(true)
+                .path("/")
+                .maxAge(0)
+                .sameSite("Strict")
+                .build();
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.SET_COOKIE, deleteCookieAfterLogout.toString())
+                .body("Successful logout.");
     }
 }
