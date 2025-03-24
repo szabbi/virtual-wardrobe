@@ -7,6 +7,7 @@ import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -64,6 +65,9 @@ public class ItemEntity {
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private UserEntity user;
+
+    @ManyToMany(mappedBy = "items")
+    private List<OutfitEntity> outfits;
 
     public ItemEntity(String imageFile, String name, Sizing size, String type, String color, String material, String pattern, String brand, String fit, Season season, String occasion, LocalDate purchaseDate, BigDecimal purchasePrice) {
         this.imageFile = imageFile;
