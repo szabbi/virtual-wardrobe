@@ -8,8 +8,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -38,6 +40,16 @@ public class ItemController {
         try {
             itemService.deleteItemById(id);
             return ResponseEntity.ok("Item deleted successfully.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
+
+    @PostMapping("/items/image")
+    public ResponseEntity<?> uploadItemImage(@RequestParam("file") MultipartFile file) {
+        try {
+            String fileName = itemService.saveImage(file);
+            return ResponseEntity.ok().body(Map.of("filename", fileName));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }

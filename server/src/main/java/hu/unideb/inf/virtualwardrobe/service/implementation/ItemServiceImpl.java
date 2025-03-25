@@ -10,12 +10,21 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class ItemServiceImpl implements ItemService {
+
+    private static final String IMAGE_UPLOAD_DICTIONARY = System.getProperty("user.home") + "\\AppData\\Local\\";
 
     @Autowired
     ItemRepository itemRepository;
@@ -57,4 +66,19 @@ public class ItemServiceImpl implements ItemService {
                 .map(item -> modelMapper.map(item, ItemDto.class))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public String saveImage(MultipartFile file) throws IOException {
+        Path uploadDir = Paths.get(IMAGE_UPLOAD_DICTIONARY, "Virtual Wardrobe", "Uploaded Images",
+                String.valueOf(((UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId()));
+        Files.createDirectories(uploadDir);
+
+        Path filePath = uploadDir.resolve(file.getOriginalFilename());
+
+        Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+
+        return file.getOriginalFilename();
+    }
+
+
 }
