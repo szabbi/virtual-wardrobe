@@ -2,6 +2,10 @@ package hu.unideb.inf.virtualwardrobe.service;
 
 import hu.unideb.inf.virtualwardrobe.service.dto.ItemDto;
 
+import java.util.List;
+
 public interface ItemService {
-    void save (ItemDto item);
+    void saveItem (ItemDto item);
+    void deleteItemById (Long id);
+    List<ItemDto> getAllItems ();
 }

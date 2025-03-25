@@ -1,6 +1,7 @@
 package hu.unideb.inf.virtualwardrobe.service.implementation;
 
 import hu.unideb.inf.virtualwardrobe.data.entity.ItemEntity;
+import hu.unideb.inf.virtualwardrobe.data.entity.UserEntity;
 import hu.unideb.inf.virtualwardrobe.data.repository.ItemRepository;
 import hu.unideb.inf.virtualwardrobe.data.repository.UserRepository;
 import hu.unideb.inf.virtualwardrobe.service.ItemService;
@@ -9,6 +10,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ItemServiceImpl implements ItemService {
@@ -23,12 +27,34 @@ public class ItemServiceImpl implements ItemService {
     ModelMapper modelMapper;
 
     @Override
-    public void save(ItemDto item) {
+    public void saveItem(ItemDto item) {
         ItemEntity entity = modelMapper.map(item, ItemEntity.class);
-        String currentUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+        String currentUserEmail = ((UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getEmail();
 
         entity.setUser(userRepository.findByEmail(currentUserEmail));
 
         itemRepository.save(entity);
+    }
+
+    @Override
+    public void deleteItemById(Long id) {
+        Long currentUserId = ((UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
+
+        ItemEntity item = itemRepository.findById(id).orElseThrow();
+        if (!itemRepository.existsById(id) || !item.getUser().getId().equals(currentUserId)) {
+            throw new RuntimeException("Item does not exist with this ID or item is not owned by current user.");
+        }
+        itemRepository.deleteById(id);
+    }
+
+    @Override
+    public List<ItemDto> getAllItems() {
+        Long currentUserId = ((UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
+
+        List<ItemEntity> items = itemRepository.findAllByUserId(currentUserId);
+
+        return items.stream()
+                .map(item -> modelMapper.map(item, ItemDto.class))
+                .collect(Collectors.toList());
     }
 }

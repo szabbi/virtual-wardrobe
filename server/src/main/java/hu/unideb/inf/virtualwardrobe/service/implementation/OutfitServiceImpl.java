@@ -7,13 +7,15 @@ import hu.unideb.inf.virtualwardrobe.data.repository.ItemRepository;
 import hu.unideb.inf.virtualwardrobe.data.repository.OutfitRepository;
 import hu.unideb.inf.virtualwardrobe.data.repository.UserRepository;
 import hu.unideb.inf.virtualwardrobe.service.OutfitService;
+import hu.unideb.inf.virtualwardrobe.service.UserService;
+import hu.unideb.inf.virtualwardrobe.service.dto.ItemDto;
 import hu.unideb.inf.virtualwardrobe.service.dto.OutfitDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
-import java.nio.file.AccessDeniedException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,9 +35,8 @@ public class OutfitServiceImpl implements OutfitService {
     UserRepository userRepository;
 
     @Override
-    public void save(OutfitDto dto) {
-        String currentUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
-        UserEntity currentUser = userRepository.findByEmail(currentUserEmail);
+    public void saveOutfit(OutfitDto dto) {
+        UserEntity currentUser = ((UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 
         List<ItemEntity> itemEntityList = itemRepository.findAllById(dto.getItems());
         OutfitEntity entity = new OutfitEntity();
@@ -56,5 +57,33 @@ public class OutfitServiceImpl implements OutfitService {
         entity.setUser(currentUser);
 
         outfitRepository.save(entity);
+    }
+
+    @Override
+    public void deleteOutfitById(Long id) {
+        Long currentUserId = ((UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
+
+        OutfitEntity item = outfitRepository.findById(id).orElseThrow();
+        if (!outfitRepository.existsById(id) || !item.getUser().getId().equals(currentUserId)) {
+            throw new RuntimeException("Outfit does not exist with this ID or item is not owned by current user.");
+        }
+        outfitRepository.deleteById(id);
+    }
+
+    @Override
+    public List<OutfitDto> getAllOutfits() {
+        Long currentUserId = ((UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
+
+        List<OutfitEntity> outfits = outfitRepository.findAllByUserId(currentUserId);
+
+        return outfits.stream().map(outfit -> {
+            List<ItemEntity> items = outfit.getItems();
+
+            return new OutfitDto(
+                    outfit.getName(),
+                    items.stream().map(ItemEntity::getId).toList(),
+                    items.stream().map(ItemEntity::getImageFile).toList()
+            );
+        }).toList();
     }
 }

@@ -19,6 +19,7 @@ public class OutfitDto {
     @NotBlank(message = "Name is required.")
     private String name;
 
-    @NotEmpty
     private List<Long> items;
+
+    private List<String> imagePaths;
 }

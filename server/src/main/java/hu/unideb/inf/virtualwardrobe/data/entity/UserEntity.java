@@ -12,7 +12,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(exclude = "items")
+@ToString(exclude = {"items", "outfits"})
 @Entity
 @Table(name = "user")
 public class UserEntity implements UserDetails {
@@ -39,9 +39,20 @@ public class UserEntity implements UserDetails {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<OutfitEntity> outfits;
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
+    @Override public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.emptyList();
+    }
+    @Override public boolean isAccountNonExpired() {
+        return true;
+    }
+    @Override public boolean isAccountNonLocked() {
+        return true;
+    }
+    @Override public boolean isCredentialsNonExpired() {
+        return true;
+    }
+    @Override public boolean isEnabled() {
+        return true;
     }
 
     @Override

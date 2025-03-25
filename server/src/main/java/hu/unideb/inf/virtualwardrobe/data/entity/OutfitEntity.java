@@ -5,13 +5,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
+@ToString(exclude = "items")
 @Entity
 @Table(name = "outfit")
 public class OutfitEntity {
@@ -24,7 +26,9 @@ public class OutfitEntity {
     private String name;
 
     @ManyToMany
-    @JoinTable(name = "outfit_item", joinColumns = @JoinColumn(name = "outfit_id"), inverseJoinColumns = @JoinColumn(name = "item_id"))
+    @JoinTable(name = "outfit_item",
+            joinColumns = @JoinColumn(name = "outfit_id"),
+            inverseJoinColumns = @JoinColumn(name = "item_id"))
     private List<ItemEntity> items;
 
     @ManyToOne

@@ -7,21 +7,34 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 @RestController
-@RequestMapping("/api/outfit")
+@RequestMapping("/api")
 public class OutfitController {
 
     @Autowired
     OutfitService outfitService;
 
-    @PostMapping("/new")
-    public ResponseEntity<?> addNewOutfit(@Valid @RequestBody OutfitDto dto) {
-        outfitService.save(dto);
+    @PostMapping("/outfits")
+    public ResponseEntity<?> saveOutfit(@Valid @RequestBody OutfitDto outfit) {
+        outfitService.saveOutfit(outfit);
         return ResponseEntity.status(HttpStatus.CREATED).body("Outfit saved.");
+    }
+
+    @GetMapping("/outfits")
+    public ResponseEntity<List<OutfitDto>> getAllOutfits() {
+        return ResponseEntity.ok(outfitService.getAllOutfits());
+    }
+
+    @DeleteMapping("/outfits/{id}")
+    public ResponseEntity<?> deleteOutfitById(@PathVariable Long id) {
+        try {
+            outfitService.deleteOutfitById(id);
+            return ResponseEntity.ok("Item deleted successfully.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 }
