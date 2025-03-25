@@ -36,6 +36,9 @@ public class UserEntity implements UserDetails {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<ItemEntity> items;
 
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<OutfitEntity> outfits;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.emptyList();

@@ -26,4 +26,8 @@ public class OutfitEntity {
     @ManyToMany
     @JoinTable(name = "outfit_item", joinColumns = @JoinColumn(name = "outfit_id"), inverseJoinColumns = @JoinColumn(name = "item_id"))
     private List<ItemEntity> items;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    UserEntity user;
 }
