@@ -5,6 +5,7 @@
 	align-items: center;
 	width: 100vw;
 	height: 50px;
+	z-index: 1000;
 }
 
 .logoContainer {

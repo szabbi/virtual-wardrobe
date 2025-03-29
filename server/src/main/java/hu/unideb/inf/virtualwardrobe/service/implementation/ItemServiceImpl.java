@@ -8,6 +8,10 @@ import hu.unideb.inf.virtualwardrobe.service.ItemService;
 import hu.unideb.inf.virtualwardrobe.service.dto.ItemDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,7 +28,7 @@ import java.util.stream.Collectors;
 @Service
 public class ItemServiceImpl implements ItemService {
 
-    private static final String IMAGE_UPLOAD_DICTIONARY = System.getProperty("user.home") + "\\AppData\\Local\\";
+    private static final String IMAGE_UPLOAD_DIRECTORY = System.getProperty("user.home") + "\\AppData\\Local\\";
 
     @Autowired
     ItemRepository itemRepository;
@@ -69,7 +73,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public String saveImage(MultipartFile file) throws IOException {
-        Path uploadDir = Paths.get(IMAGE_UPLOAD_DICTIONARY, "Virtual Wardrobe", "Uploaded Images",
+        Path uploadDir = Paths.get(IMAGE_UPLOAD_DIRECTORY, "Virtual Wardrobe", "Uploaded Images",
                 String.valueOf(((UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId()));
         Files.createDirectories(uploadDir);
 
@@ -80,5 +84,12 @@ public class ItemServiceImpl implements ItemService {
         return file.getOriginalFilename();
     }
 
+    @Override
+    public Resource loadItemImage(String imageName) throws IOException {
+        Long currentUserId = ((UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
 
+        Path imagePath = Paths.get(IMAGE_UPLOAD_DIRECTORY, "Virtual Wardrobe", "Uploaded Images", String.valueOf(currentUserId), imageName);
+
+        return new UrlResource(imagePath.toUri());
+    }
 }

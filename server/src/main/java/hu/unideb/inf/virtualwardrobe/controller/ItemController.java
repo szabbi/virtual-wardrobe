@@ -2,14 +2,19 @@ package hu.unideb.inf.virtualwardrobe.controller;
 
 import hu.unideb.inf.virtualwardrobe.service.ItemService;
 import hu.unideb.inf.virtualwardrobe.service.dto.ItemDto;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -53,5 +58,10 @@ public class ItemController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
+    }
+
+    @GetMapping("items/image/{imageName}")
+    public ResponseEntity<Resource> getItemImage(@PathVariable String imageName) throws IOException {
+        return ResponseEntity.ok().body(itemService.loadItemImage(imageName));
     }
 }

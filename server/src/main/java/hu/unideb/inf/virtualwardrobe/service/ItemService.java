@@ -1,6 +1,7 @@
 package hu.unideb.inf.virtualwardrobe.service;
 
 import hu.unideb.inf.virtualwardrobe.service.dto.ItemDto;
+import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -11,4 +12,5 @@ public interface ItemService {
     void deleteItemById (Long id);
     List<ItemDto> getAllItems ();
     String saveImage(MultipartFile file) throws IOException;
+    Resource loadItemImage(String imageName) throws IOException;
 }
