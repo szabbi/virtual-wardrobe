@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import "./App.css";
 import Gallery from "./components/Gallery/Gallery.jsx";
+import Outfits from "./components/Outfits/Outfits.jsx";
 import Navbar from "./components/Navbar/Navbar.jsx";
 import Planner from "./components/Planner/Planner.jsx";
 import Login from "./components/Auth/Login.jsx";
@@ -29,6 +30,7 @@ function App() {
 					</Route>
 					<Route element={<ProtectedRoute />}>
 						<Route path="/planner" element={<Planner />}></Route>
+						<Route path="/outfits" element={<Outfits />}></Route>
 						<Route path="/gallery" element={<Gallery />}></Route>
 					</Route>
 					<Route path="*" element={<Navigate to="/" replace />} />
