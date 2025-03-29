@@ -2,13 +2,18 @@ import styles from "./Navbar.module.css";
 import icon from "../../assets/icon.svg";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
+import { useAuth } from "../../context/AuthProvider";
 
 const Navbar = () => {
-	const [isAuthenticated, setIsAuthenticated] = useState(true);
+	const { isAuthenticated, logout } = useAuth();
 	const [isDropdownMenuOpen, setIsDropdownMenuOpen] = useState(false);
 
 	const toggleDropdown = () => {
 		setIsDropdownMenuOpen((prevState) => !prevState);
+	};
+
+	const handleLogout = async () => {
+		await logout();
 	};
 
 	return (
@@ -176,6 +181,7 @@ const Navbar = () => {
 											</span>
 											<button
 												className={styles.logOutButton}
+												onClick={handleLogout}
 											>
 												Sign Out
 											</button>

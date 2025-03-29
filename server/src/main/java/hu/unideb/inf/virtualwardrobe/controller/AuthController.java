@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/auth")
@@ -47,7 +48,7 @@ public class AuthController {
                     .httpOnly(true)
                     .path("/")
                     .maxAge(15*60)
-                    .sameSite("Strict")
+                    .sameSite("Lax")
                     .build();
 
             return ResponseEntity.ok()
@@ -74,5 +75,13 @@ public class AuthController {
         return ResponseEntity.ok()
                 .header(HttpHeaders.SET_COOKIE, deleteCookieAfterLogout.toString())
                 .body("Successful logout.");
+    }
+
+    @GetMapping("/status")
+    public ResponseEntity<?> getAuthStatus(@CookieValue(name = "jwt", required = false) String token )  {
+        if (token == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        return ResponseEntity.ok(Map.of("email", jwtAuthService.extractEmail(token)));
     }
 }
