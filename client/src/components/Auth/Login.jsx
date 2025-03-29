@@ -9,6 +9,15 @@ const Login = () => {
 	const { login } = useAuth();
 	const navigate = useNavigate();
 
+	const handleChange = (e) => {
+		const { name, value } = e.target;
+
+		setCredentials({
+			...credentials,
+			[name]: value,
+		});
+	};
+
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
@@ -35,33 +44,28 @@ const Login = () => {
 						<div>
 							<input
 								type="text"
+								name="email"
 								placeholder="Email"
 								className={styles.inputField}
 								value={credentials.email}
-								onChange={(e) =>
-									setCredentials({
-										...credentials,
-										email: e.target.value,
-									})
-								}
+								onChange={handleChange}
 							/>
 						</div>
 						<div>
 							<input
 								type="password"
+								name="password"
 								placeholder="Password"
 								className={styles.inputField}
 								value={credentials.password}
-								onChange={(e) =>
-									setCredentials({
-										...credentials,
-										password: e.target.value,
-									})
-								}
+								onChange={handleChange}
 							/>
 						</div>
 						<div className={styles.accountManagementTextContainer}>
-							<a className={styles.accountManagementText} href="">
+							<a
+								className={styles.accountManagementText}
+								href="/registration"
+							>
 								Create an account
 							</a>
 							<a className={styles.accountManagementText} href="">
