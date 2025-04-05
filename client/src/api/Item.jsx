@@ -8,3 +8,7 @@ const apiItem = axios.create({
 export const getAllItems = async () => {
 	return apiItem.get("/items");
 };
+
+export const deleteItemById = async (id) => {
+	return apiItem.delete(`items/${id}`);
+};

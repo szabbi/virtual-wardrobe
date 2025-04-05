@@ -96,43 +96,29 @@ hr {
 	border-radius: 20px;
 }
 
-.dropdownUsername {
+.dropdownAccount {
 	padding: 0;
 	margin: 0;
 }
 
 .dropdownActionsListContainer {
-	padding-bottom: 2em;
+	padding-bottom: 1em;
 }
 
 .dropdownActionsList {
 	list-style: none;
 	padding: 0em;
 	margin: 0em 1em;
-	text-align: left;
 	font-size: 1em;
-}
-
-.dropdownActionsList hr {
-	margin: 0.2em 0;
 }
 
 .dropdownListElementContainer {
 	display: flex;
-	align-items: center;
+	justify-content: center;
 }
 
 .dropdownListElementContainer span {
 	padding: 0em 0.2em;
-}
-
-.dropdownLink {
-	text-decoration: none;
-	color: rgb(0, 0, 0);
-}
-
-.dropdownLink:hover {
-	color: rgb(219, 169, 121);
 }
 
 .logOutButton {

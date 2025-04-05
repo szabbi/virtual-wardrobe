@@ -65,24 +65,21 @@ const Navbar = () => {
 
 			<div className={styles.userStyle}>
 				<button
-					className={`material-icons-round ${styles.accountIcon}`}
+					className={`material-icons-round ${
+						isAuthenticated
+							? styles.accountIcon
+							: styles.notAuthenticated
+					}`}
 					onClick={toggleDropdown}
 				>
 					account_circle
 				</button>
 				{isDropdownMenuOpen && (
 					<div className={styles.dropdownMenuContainer}>
-						<h2
-							className={` ${
-								isAuthenticated ? styles.notAuthenticated : ""
-							}`}
-						>
-							Not logged in
-						</h2>
 						{isAuthenticated && (
 							<div>
-								<h2 className={styles.dropdownUsername}>
-									First name
+								<h2 className={styles.dropdownAccount}>
+									Account
 								</h2>
 								<hr />
 								<div
@@ -91,96 +88,6 @@ const Navbar = () => {
 									}
 								>
 									<ul className={styles.dropdownActionsList}>
-										<div
-											className={
-												styles.dropdownListElementContainer
-											}
-										>
-											<span className="material-icons-round">
-												person
-											</span>
-											<li
-												className={
-													styles.dropdownListElement
-												}
-											>
-												<NavLink
-													className={
-														styles.dropdownLink
-													}
-												>
-													View profile
-												</NavLink>
-											</li>
-										</div>
-										<hr />
-										<div
-											className={
-												styles.dropdownListElementContainer
-											}
-										>
-											<span className="material-icons-round">
-												manage_accounts
-											</span>
-											<li
-												className={
-													styles.dropdownListElement
-												}
-											>
-												<NavLink
-													className={
-														styles.dropdownLink
-													}
-												>
-													Settings
-												</NavLink>
-											</li>
-										</div>
-										<div
-											className={
-												styles.dropdownListElementContainer
-											}
-										>
-											<span className="material-icons-round">
-												alternate_email
-											</span>
-											<li
-												className={
-													styles.dropdownListElement
-												}
-											>
-												<NavLink
-													className={
-														styles.dropdownLink
-													}
-												>
-													Contact
-												</NavLink>
-											</li>
-										</div>
-										<hr />
-										<div
-											className={
-												styles.dropdownListElementContainer
-											}
-										>
-											<span className="material-icons-round">
-												info
-											</span>
-											<li
-												className={
-													styles.dropdownListElement
-												}
-											>
-												<NavLink
-													className={
-														styles.dropdownLink
-													}
-												>
-													About
-												</NavLink>
-											</li>
-										</div>
 										<div
 											className={
 												styles.dropdownListElementContainer
