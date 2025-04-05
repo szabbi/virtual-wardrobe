@@ -16,44 +16,48 @@ const Navbar = () => {
 		await logout();
 	};
 
+	if (!isAuthenticated) {
+		return;
+	}
+
 	return (
-		<header className={styles.header}>
-			<div className={styles.logoContainer}>
-				<img src={icon} alt="Logo" className={styles.logo} />
-				<p className={styles.logoText}>eCloset</p>
-			</div>
-			<nav className={styles.navStyle}>
-				<ul
-					className={` ${
-						isAuthenticated
-							? styles.ulStyle
-							: styles.notAuthenticated
-					}`}
-				>
-					<li className={styles.liStyle}>
+		<header className={styles.navbar}>
+			<NavLink to="/gallery" className={styles.brand}>
+				<img src={icon} alt="Logo" className={styles.brandLogo} />
+				<h2 className={styles.brandName}>eCloset</h2>
+			</NavLink>
+			<nav className={styles.navContainer}>
+				<ul className={styles.NavLinks}>
+					<li>
 						<NavLink
 							className={({ isActive }) =>
-								isActive ? styles.active : styles.linkStyle
+								isActive
+									? `${styles.navLink} ${styles.active}`
+									: styles.navLink
 							}
 							to="/planner"
 						>
 							Planner
 						</NavLink>
 					</li>
-					<li className={styles.liStyle}>
+					<li>
 						<NavLink
 							className={({ isActive }) =>
-								isActive ? styles.active : styles.linkStyle
+								isActive
+									? `${styles.navLink} ${styles.active}`
+									: styles.navLink
 							}
 							to="/outfits"
 						>
 							Outfits
 						</NavLink>
 					</li>
-					<li className={styles.liStyle}>
+					<li>
 						<NavLink
 							className={({ isActive }) =>
-								isActive ? styles.active : styles.linkStyle
+								isActive
+									? `${styles.navLink} ${styles.active}`
+									: styles.navLink
 							}
 							to="/gallery"
 						>
@@ -62,51 +66,32 @@ const Navbar = () => {
 					</li>
 				</ul>
 			</nav>
-
-			<div className={styles.userStyle}>
+			<div className={styles.userMenu}>
 				<button
-					className={`material-icons-round ${
-						isAuthenticated
-							? styles.accountIcon
-							: styles.notAuthenticated
-					}`}
+					className={`material-icons-round ${styles.dropdownToggleIcon}`}
 					onClick={toggleDropdown}
 				>
 					account_circle
 				</button>
 				{isDropdownMenuOpen && (
-					<div className={styles.dropdownMenuContainer}>
-						{isAuthenticated && (
-							<div>
-								<h2 className={styles.dropdownAccount}>
-									Account
-								</h2>
-								<hr />
-								<div
-									className={
-										styles.dropdownActionsListContainer
-									}
+					<div className={styles.dropdown}>
+						<h2 className={styles.dropdownHeader}>Account</h2>
+						<hr className={styles.dropdownDivider} />
+						<div className={styles.dropdownItem}>
+							<ul className={styles.dropdownActionsList}>
+								<span
+									className={`material-icons-round ${styles.dropdownIcon}`}
 								>
-									<ul className={styles.dropdownActionsList}>
-										<div
-											className={
-												styles.dropdownListElementContainer
-											}
-										>
-											<span className="material-icons-round">
-												logout
-											</span>
-											<button
-												className={styles.logOutButton}
-												onClick={handleLogout}
-											>
-												Sign Out
-											</button>
-										</div>
-									</ul>
-								</div>
-							</div>
-						)}
+									logout
+								</span>
+								<button
+									className={styles.logOutButton}
+									onClick={handleLogout}
+								>
+									Sign Out
+								</button>
+							</ul>
+						</div>
 					</div>
 				)}
 			</div>

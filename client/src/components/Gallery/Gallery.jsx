@@ -7,14 +7,26 @@ const Gallery = () => {
 	const [items, setItems] = useState([]);
 	const [selectedItem, setSelectedItem] = useState(null);
 	const [selectedItemId, setSelectedItemId] = useState(null);
+	const [filteredItems, setFilteredItems] = useState([]);
+	const [searchTerm, setSearchTerm] = useState("");
+	const [filters, setFilters] = useState({
+		size: "",
+		type: "",
+		color: "",
+		material: "",
+		pattern: "",
+		brand: "",
+		fit: "",
+		season: "",
+		occasion: "",
+	});
 
 	useEffect(() => {
 		const getItems = async () => {
 			try {
 				const response = await getAllItems();
-				console.log("response", response);
-
 				setItems(response.data);
+				setFilteredItems(response.data);
 			} catch (err) {
 				console.log(err);
 			}
@@ -22,6 +34,32 @@ const Gallery = () => {
 
 		getItems();
 	}, []);
+
+	useEffect(() => {
+		let results = items;
+
+		if (searchTerm) {
+			results = results.filter((item) =>
+				item.name.toLowerCase().includes(searchTerm.toLowerCase())
+			);
+		}
+
+		results = results.filter((item) => {
+			return (
+				(!filters.size || item.size === filters.size) &&
+				(!filters.type || item.type === filters.type) &&
+				(!filters.color || item.color === filters.color) &&
+				(!filters.material || item.material === filters.material) &&
+				(!filters.pattern || item.pattern === filters.pattern) &&
+				(!filters.brand || item.brand === filters.brand) &&
+				(!filters.fit || item.fit === filters.fit) &&
+				(!filters.season || item.season === filters.season) &&
+				(!filters.occasion || item.occasion === filters.occasion)
+			);
+		});
+
+		setFilteredItems(results);
+	}, [items, searchTerm, filters]);
 
 	const openModal = (item, id) => {
 		setSelectedItem(item);
@@ -57,9 +95,195 @@ const Gallery = () => {
 	return (
 		<div className={styles.container}>
 			<div className={styles.filterPanel}>
-				<h3>Search</h3>
-				<input type="text" placeholder="Search by name..." />
-				<h3>Filters</h3>
+				<h2>Search</h2>
+				<input
+					type="text"
+					placeholder="Search by name..."
+					value={searchTerm}
+					onChange={(e) => setSearchTerm(e.target.value)}
+				/>
+				<h2>Filters</h2>
+				<div className={styles.filterGroup}>
+					<label>Size</label>
+					<select
+						value={filters.size}
+						onChange={(e) =>
+							setFilters({ ...filters, size: e.target.value })
+						}
+					>
+						<option value="">All Sizes</option>
+						{[...new Set(items.map((item) => item.size))].map(
+							(size) => (
+								<option key={size} value={size}>
+									{size}
+								</option>
+							)
+						)}
+					</select>
+				</div>
+				<div className={styles.filterGroup}>
+					<label>Type</label>
+					<select
+						value={filters.type}
+						onChange={(e) =>
+							setFilters({ ...filters, type: e.target.value })
+						}
+					>
+						<option value="">All Types</option>
+						{[...new Set(items.map((item) => item.type))].map(
+							(type) => (
+								<option key={type} value={type}>
+									{type}
+								</option>
+							)
+						)}
+					</select>
+				</div>
+				<div className={styles.filterGroup}>
+					<label>Color</label>
+					<select
+						value={filters.color}
+						onChange={(e) =>
+							setFilters({ ...filters, color: e.target.value })
+						}
+					>
+						<option value="">All Colors</option>
+						{[...new Set(items.map((item) => item.color))].map(
+							(color) => (
+								<option key={color} value={color}>
+									{color}
+								</option>
+							)
+						)}
+					</select>
+				</div>
+				<div className={styles.filterGroup}>
+					<label>Material</label>
+					<select
+						value={filters.material}
+						onChange={(e) =>
+							setFilters({ ...filters, material: e.target.value })
+						}
+					>
+						<option value="">All Materials</option>
+						{[...new Set(items.map((item) => item.material))].map(
+							(material) => (
+								<option key={material} value={material}>
+									{material}
+								</option>
+							)
+						)}
+					</select>
+				</div>
+				<div className={styles.filterGroup}>
+					<label>Pattern</label>
+					<select
+						value={filters.pattern}
+						onChange={(e) =>
+							setFilters({ ...filters, pattern: e.target.value })
+						}
+					>
+						<option value="">All Patterns</option>
+						{[...new Set(items.map((item) => item.pattern))].map(
+							(pattern) => (
+								<option key={pattern} value={pattern}>
+									{pattern}
+								</option>
+							)
+						)}
+					</select>
+				</div>
+				<div className={styles.filterGroup}>
+					<label>Brand</label>
+					<select
+						value={filters.brand}
+						onChange={(e) =>
+							setFilters({ ...filters, brand: e.target.value })
+						}
+					>
+						<option value="">All Brans</option>
+						{[...new Set(items.map((item) => item.brand))].map(
+							(brand) => (
+								<option key={brand} value={brand}>
+									{brand}
+								</option>
+							)
+						)}
+					</select>
+				</div>
+				<div className={styles.filterGroup}>
+					<label>Fit</label>
+					<select
+						value={filters.fit}
+						onChange={(e) =>
+							setFilters({ ...filters, fit: e.target.value })
+						}
+					>
+						<option value="">All Fits</option>
+						{[...new Set(items.map((item) => item.fit))].map(
+							(fit) => (
+								<option key={fit} value={fit}>
+									{fit}
+								</option>
+							)
+						)}
+					</select>
+				</div>
+				<div className={styles.filterGroup}>
+					<label>Season</label>
+					<select
+						value={filters.season}
+						onChange={(e) =>
+							setFilters({ ...filters, season: e.target.value })
+						}
+					>
+						<option value="">All Seasons</option>
+						{[...new Set(items.map((item) => item.season))].map(
+							(season) => (
+								<option key={season} value={season}>
+									{season}
+								</option>
+							)
+						)}
+					</select>
+				</div>
+				<div className={styles.filterGroup}>
+					<label>Occasion</label>
+					<select
+						value={filters.occasion}
+						onChange={(e) =>
+							setFilters({ ...filters, occasion: e.target.value })
+						}
+					>
+						<option value="">All Occasions</option>
+						{[...new Set(items.map((item) => item.occasion))].map(
+							(occasion) => (
+								<option key={occasion} value={occasion}>
+									{occasion}
+								</option>
+							)
+						)}
+					</select>
+				</div>
+				<button
+					className={styles.clearFilters}
+					onClick={() => {
+						setFilters({
+							size: "",
+							type: "",
+							color: "",
+							material: "",
+							pattern: "",
+							brand: "",
+							fit: "",
+							season: "",
+							occasion: "",
+						});
+						setSearchTerm("");
+					}}
+				>
+					Clear All Filters
+				</button>
 			</div>
 			<div className={styles.itemContainer}>
 				<div className={styles.itemsHeader}>
@@ -68,7 +292,7 @@ const Gallery = () => {
 					</button>
 				</div>
 				<div className={styles.items}>
-					{items.map((item) => (
+					{filteredItems.map((item) => (
 						<div
 							key={item.id}
 							className={styles.itemCard}
@@ -104,12 +328,13 @@ const Gallery = () => {
 						onClick={(e) => e.stopPropagation()}
 					>
 						<div className={styles.modalHeader}>
-							<button
-								className={styles.closeButton}
+							<span
+								className={`material-icons-round ${styles.actionIcon}`}
 								onClick={closeModal}
+								title="Close"
 							>
-								×
-							</button>
+								close
+							</span>
 							<div className={styles.actionButtons}>
 								<span
 									className={`material-icons-round ${styles.actionIcon}`}

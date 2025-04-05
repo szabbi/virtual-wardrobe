@@ -29,49 +29,49 @@ const Login = () => {
 	};
 
 	return (
-		<div className={styles.mainContainer}>
-			<div className={styles.leftSideContainer}>
-				<h2 className={styles.promotionText}>
+		<div className={styles.loginPage}>
+			<div className={styles.leftSide}>
+				<h1 className={styles.welcomeText}>
 					Start organizing your life with{" "}
-					<span className={styles.highlightedText}>eCloset</span>
-				</h2>
-				<img src={image} alt="" className={styles.wardrobeImage} />
+					<span className={styles.highlightedWelcomeText}>
+						eCloset
+					</span>
+				</h1>
+				<img
+					src={image}
+					alt="Empty wardrobe image"
+					className={styles.wardrobeImage}
+				/>
 			</div>
-			<div className={styles.rightSideContainer}>
-				<div className={styles.formContainer}>
-					<h2 className={styles.signInText}>Sign in</h2>
-					<form action="" onSubmit={handleSubmit}>
-						<div>
+
+			<div className={styles.authSection}>
+				<div className={styles.authCard}>
+					<h1 className={styles.authTitle}>Welcome</h1>
+
+					<form onSubmit={handleSubmit} className={styles.authForm}>
+						<div className={styles.formGroup}>
 							<input
 								type="text"
 								name="email"
 								placeholder="Email"
-								className={styles.inputField}
+								className={styles.formInput}
 								value={credentials.email}
 								onChange={handleChange}
 							/>
 						</div>
-						<div>
+						<div className={styles.formGroup}>
 							<input
 								type="password"
 								name="password"
 								placeholder="Password"
-								className={styles.inputField}
+								className={styles.formInput}
 								value={credentials.password}
 								onChange={handleChange}
 							/>
 						</div>
-						<div className={styles.accountManagementTextContainer}>
-							<a
-								className={styles.accountManagementText}
-								href="/registration"
-							>
-								Create an account
-							</a>
-							<a className={styles.accountManagementText} href="">
-								Forgot password
-							</a>
-						</div>
+						<a className={styles.formLink} href="/registration">
+							Create an account
+						</a>
 						<button className={styles.submitButton} type="submit">
 							SIGN IN
 						</button>
