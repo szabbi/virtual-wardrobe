@@ -5,7 +5,7 @@ import {
 	Navigate,
 } from "react-router-dom";
 import "./App.css";
-import Gallery from "./components/Gallery/Gallery.jsx";
+import Gallery from "./pages/Gallery/Gallery.jsx";
 import Outfits from "./components/Outfits/Outfits.jsx";
 import Navbar from "./components/Navbar/Navbar.jsx";
 import Planner from "./components/Planner/Planner.jsx";

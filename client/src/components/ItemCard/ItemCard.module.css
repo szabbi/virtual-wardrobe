@@ -1,0 +1,40 @@
+.itemCard {
+	background: var(--white);
+	border: var(--border);
+	border-radius: var(--radius-lg);
+	padding: var(--space-sm);
+	text-align: center;
+	cursor: pointer;
+	transition: all var(--transition-normal);
+	box-shadow: var(--shadow-sm);
+}
+
+.itemCard:hover {
+	transform: translateY(-2px);
+	box-shadow: var(--shadow-md);
+	border-color: var(--primary);
+}
+
+.itemCard img {
+	object-fit: cover;
+	border-radius: var(--radius-sm);
+	transition: transform var(--transition-normal);
+	margin: auto;
+}
+
+.itemCard:hover img {
+	transform: scale(1.05);
+}
+
+.itemCard h2 {
+	margin: var(--space-md) 0;
+}
+
+.itemCard p {
+	color: var(--gray);
+	font-size: var(--text-sm);
+}
+
+.itemCard strong {
+	color: var(--dark);
+}
