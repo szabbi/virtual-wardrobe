@@ -7,6 +7,7 @@ export const FilterPanel = ({
 	filters,
 	setFilters,
 	items,
+	searchOnly = false,
 }) => {
 	const FILTER_FIELDS = [
 		{ key: "size", label: "Size" },
@@ -44,42 +45,46 @@ export const FilterPanel = ({
 				value={searchTerm}
 				onChange={(e) => setSearchTerm(e.target.value)}
 			/>
-			<h2>Filters</h2>
-			<div>
-				{FILTER_FIELDS.map(({ key, label }) => (
-					<div key={key} className={filterStyles.filterGroup}>
-						<label>{label}</label>
-						<select
-							value={filters[key] || ""}
-							onChange={(e) =>
-								setFilters({
-									...filters,
-									[key]: e.target.value,
-								})
-							}
-						>
-							<option value="">All {label}</option>
-							{[
-								...new Set(
-									items
-										.map((item) => item[key])
-										.filter(Boolean)
-								),
-							].map((value) => (
-								<option key={value} value={value}>
-									{value}
-								</option>
-							))}
-						</select>
+			{!searchOnly && (
+				<>
+					<h2>Filters</h2>
+					<div>
+						{FILTER_FIELDS.map(({ key, label }) => (
+							<div key={key} className={filterStyles.filterGroup}>
+								<label>{label}</label>
+								<select
+									value={filters[key] || ""}
+									onChange={(e) =>
+										setFilters({
+											...filters,
+											[key]: e.target.value,
+										})
+									}
+								>
+									<option value="">All {label}</option>
+									{[
+										...new Set(
+											items
+												.map((item) => item[key])
+												.filter(Boolean)
+										),
+									].map((value) => (
+										<option key={value} value={value}>
+											{value}
+										</option>
+									))}
+								</select>
+							</div>
+						))}
 					</div>
-				))}
-			</div>
-			<button
-				className={filterStyles.clearFilters}
-				onClick={clearAllFilters}
-			>
-				Clear All Filters
-			</button>
+					<button
+						className={filterStyles.clearFilters}
+						onClick={clearAllFilters}
+					>
+						Clear All Filters
+					</button>
+				</>
+			)}
 		</div>
 	);
 };
