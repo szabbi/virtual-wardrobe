@@ -9,8 +9,7 @@ import Gallery from "./components/Gallery/Gallery.jsx";
 import Outfits from "./components/Outfits/Outfits.jsx";
 import Navbar from "./components/Navbar/Navbar.jsx";
 import Planner from "./components/Planner/Planner.jsx";
-import Login from "./components/Auth/Login.jsx";
-import Registration from "./components/Auth/Registration.jsx";
+import UserAuth from "./components/Auth/UserAuth.jsx";
 import { AuthProvider } from "./context/AuthProvider.jsx";
 import ProtectedRoute from "./routes/ProtectedRoute.jsx";
 import PublicRoute from "./routes/PublicRoute.jsx";
@@ -22,11 +21,7 @@ function App() {
 				<Navbar />
 				<Routes>
 					<Route element={<PublicRoute />}>
-						<Route path="/" element={<Login />}></Route>
-						<Route
-							path="/registration"
-							element={<Registration />}
-						></Route>
+						<Route path="/" element={<UserAuth />}></Route>
 					</Route>
 					<Route element={<ProtectedRoute />}>
 						<Route path="/planner" element={<Planner />}></Route>

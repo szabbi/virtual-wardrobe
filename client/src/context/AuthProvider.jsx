@@ -1,5 +1,10 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { checkUserAuthStatus, loginUser, logoutUser } from "../api/auth";
+import {
+	checkUserAuthStatus,
+	loginUser,
+	logoutUser,
+	registerUser,
+} from "../api/auth";
 
 const AuthContext = createContext();
 
@@ -33,9 +38,13 @@ export const AuthProvider = ({ children }) => {
 		setIsAuthenticated(false);
 	};
 
+	const register = async (userCredentials) => {
+		await registerUser(userCredentials);
+	};
+
 	return (
 		<AuthContext.Provider
-			value={{ isAuthenticated, login, logout, loading }}
+			value={{ isAuthenticated, login, register, logout, loading }}
 		>
 			{!loading && children}
 		</AuthContext.Provider>

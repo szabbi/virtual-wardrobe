@@ -12,3 +12,15 @@ export const getAllItems = async () => {
 export const deleteItemById = async (id) => {
 	return apiItem.delete(`items/${id}`);
 };
+
+export const saveItem = async (item) => {
+	return apiItem.post("/items", item);
+};
+
+export const saveItemImage = async (file) => {
+	return apiItem.post("/items/image", file, {
+		headers: {
+			"Content-Type": "multipart/form-data",
+		},
+	});
+};

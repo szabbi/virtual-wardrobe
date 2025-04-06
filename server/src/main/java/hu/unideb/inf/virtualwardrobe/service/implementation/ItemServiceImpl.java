@@ -23,12 +23,15 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
+import java.util.UUID;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
 @Service
 public class ItemServiceImpl implements ItemService {
 
     private static final String IMAGE_UPLOAD_DIRECTORY = System.getProperty("user.home") + "\\AppData\\Local\\";
+    private static final AtomicLong conunter = new AtomicLong(0);
 
     @Autowired
     ItemRepository itemRepository;
@@ -77,11 +80,17 @@ public class ItemServiceImpl implements ItemService {
                 String.valueOf(((UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId()));
         Files.createDirectories(uploadDir);
 
-        Path filePath = uploadDir.resolve(file.getOriginalFilename());
 
-        Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+        String originalName = file.getOriginalFilename();
+        String baseName = originalName.substring(0, originalName.lastIndexOf('.'));
+        String extension = originalName.substring(originalName.lastIndexOf('.'));
 
-        return file.getOriginalFilename();
+        String newFilename = conunter.getAndIncrement() + "_" + baseName + "_" + UUID.randomUUID() + extension;
+
+        Path filePath = uploadDir.resolve(newFilename);
+        Files.copy(file.getInputStream(), filePath);
+
+        return newFilename;
     }
 
     @Override

@@ -1,15 +1,16 @@
 .loginPage {
 	display: flex;
-	min-height: 100vh;
+	height: 100vh;
+	overflow: hidden;
 }
 
 .leftSide {
-	flex: 1;
-	background-color: var(--primary-light);
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	flex: 1;
+	background-color: var(--primary-light);
 }
 
 .welcomeText {
@@ -41,9 +42,11 @@
 }
 
 .authCard {
+	display: flex;
+	justify-content: space-between;
+	flex-direction: column;
+	max-width: 60%;
 	width: 100%;
-	height: 60vh;
-	max-width: 600px;
 	background-color: var(--light-gray);
 	border-radius: var(--radius-lg);
 }
@@ -58,12 +61,15 @@
 .authForm {
 	display: flex;
 	flex-direction: column;
-	gap: var(--space-lg);
 	align-items: center;
+	flex-grow: 1;
+	overflow: hidden;
+	gap: var(--space-lg);
 }
 
 .formGroup {
 	width: 70%;
+	position: relative;
 }
 
 .formInput {
@@ -72,7 +78,7 @@
 	border: var(--border);
 	border-radius: var(--radius-lg);
 	font-size: var(--text-xl);
-	transition: all var(--transition-fast);
+	transition: var(--transition-fast);
 }
 
 .formInput:focus {
@@ -81,14 +87,14 @@
 	box-shadow: 0 0 0 2px rgba(67, 97, 238, 0.2);
 }
 
-.formLink {
+.formSwitchButton {
 	color: var(--gray);
 	font-size: var(--text-lg);
 	margin-bottom: var(--space-lg);
-	transition: color var(--transition-fast);
+	transition: var(--transition-fast);
 }
 
-.formLink:hover {
+.formSwitchButton:hover {
 	color: var(--primary);
 }
 
@@ -102,6 +108,7 @@
 	font-weight: 600;
 	transition: all var(--transition-normal);
 	box-shadow: var(--shadow-sm);
+	margin-bottom: var(--space-lg);
 }
 
 .submitButton:hover {
@@ -110,45 +117,20 @@
 	box-shadow: var(--shadow-md);
 }
 
-/* Responsive Design */
-@media (max-width: 1024px) {
+@media (max-width: 768px) {
+	.leftSide {
+		display: none;
+	}
+
 	.welcomeText {
 		font-size: var(--text-xl);
 	}
-}
 
-@media (max-width: 768px) {
-	.loginPage {
-		flex-direction: column;
-	}
-
-	.leftSide {
-		padding: var(--space-lg) var(--space-md);
+	.authCard {
+		max-width: none;
 	}
 
 	.authSection {
-		padding: var(--space-xl) var(--space-md);
-	}
-
-	.welcomeText {
-		font-size: var(--text-lg);
-	}
-
-	.wardrobeImage {
-		max-height: 40vh;
-	}
-}
-
-@media (max-width: 480px) {
-	.welcomeText {
-		font-size: var(--text-base);
-	}
-
-	.authTitle {
-		font-size: var(--text-xl);
-	}
-
-	.formInput {
-		padding: var(--space-sm) var(--space-md);
+		padding: var(--space-md);
 	}
 }
