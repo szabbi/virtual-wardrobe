@@ -1,8 +1,12 @@
-.outfitItemCard {
+.outfitItemCard.default {
 	width: 50%;
 	aspect-ratio: 1/1;
 	position: relative;
 	overflow: hidden;
+}
+
+.outfitItemCard.modal {
+	width: 19%;
 }
 
 .image {

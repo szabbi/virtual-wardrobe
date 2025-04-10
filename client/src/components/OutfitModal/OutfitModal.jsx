@@ -33,6 +33,7 @@ export const OutfitModal = ({ selectedOutfit, onClose, onEdit, onDelete }) => {
 						key={idx}
 						image={image}
 						altText={`Item ${idx + 1} in ${selectedOutfit.name}`}
+						size="modal"
 					/>
 				))}
 			</div>

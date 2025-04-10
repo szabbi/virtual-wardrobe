@@ -8,6 +8,8 @@ import { OutfitItemCard } from "../OutfitItemCard/OutfitItemCard";
 import { useFilters } from "../../hooks/useFilters";
 import { OutfitModal } from "../OutfitModal/OutfitModal";
 
+import { deleteOutfitById } from "../../api/Outfits";
+
 const Outfits = () => {
 	const [outfits, setOutfits] = useState([]);
 	const [selectedOutfit, setSelectedOutfit] = useState(null);
@@ -16,8 +18,6 @@ const Outfits = () => {
 		const getItems = async () => {
 			try {
 				const response = await getAllOutfits();
-				console.log("response", response);
-
 				setOutfits(response.data);
 			} catch (err) {
 				console.log(err);
@@ -41,9 +41,21 @@ const Outfits = () => {
 		console.log("Edit outfit:", outfit);
 	};
 
-	const handleDeleteOutfit = () => {
-		console.log("Delete outfit:", selectedOutfit);
-		setSelectedOutfit(null);
+	const handleDeleteOutfit = async () => {
+		if (!selectedOutfit.id) return;
+
+		try {
+			await deleteOutfitById(selectedOutfit.id);
+
+			const response = await getAllOutfits();
+			setOutfits(response.data);
+
+			setSelectedOutfit(null);
+			alert("Outfit deleted successfully");
+		} catch (error) {
+			console.error("Failed to delete outfit:", error);
+			alert("Failed to delete outfit. Please try again.");
+		}
 	};
 
 	const { filteredItems, searchTerm, setSearchTerm } = useFilters(outfits);

@@ -8,3 +8,11 @@ const apiOutfits = axios.create({
 export const getAllOutfits = async () => {
 	return apiOutfits.get("/outfits");
 };
+
+export const saveOutfit = async (outfitData) => {
+	return apiOutfits.post("/outfits", outfitData);
+};
+
+export const deleteOutfitById = async (id) => {
+	return apiOutfits.delete(`outfits/${id}`);
+};

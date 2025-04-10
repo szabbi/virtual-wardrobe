@@ -16,6 +16,8 @@ import java.util.List;
 @ToString
 public class OutfitDto {
 
+    private Long id;
+
     @NotBlank(message = "Name is required.")
     private String name;
 

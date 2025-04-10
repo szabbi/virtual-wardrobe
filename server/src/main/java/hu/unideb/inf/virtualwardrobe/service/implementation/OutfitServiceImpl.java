@@ -80,6 +80,7 @@ public class OutfitServiceImpl implements OutfitService {
             List<ItemEntity> items = outfit.getItems();
 
             return new OutfitDto(
+                    outfit.getId(),
                     outfit.getName(),
                     items.stream().map(ItemEntity::getId).toList(),
                     items.stream().map(ItemEntity::getImageFile).toList()

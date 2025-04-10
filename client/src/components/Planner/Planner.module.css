@@ -1,0 +1,137 @@
+.plannerContainer {
+	display: grid;
+	grid-template-columns: 1fr 1.5fr;
+	min-height: 100vh;
+	padding-top: var(--space-xl);
+}
+
+.plannerSection {
+	background-color: var(--light-gray);
+	border-radius: var(--radius-md);
+	padding: var(--space-md);
+	box-shadow: var(--shadow-sm);
+	display: flex;
+	flex-direction: column;
+	overflow-y: auto;
+}
+
+.gallerySection {
+	background-color: var(--white);
+	border-radius: var(--radius-md);
+	padding: var(--space-md);
+	box-shadow: var(--shadow-sm);
+	overflow-y: auto;
+}
+
+.selectedItems {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	min-height: 150px;
+	border-radius: var(--radius-sm);
+}
+
+.emptyMessage {
+	color: var(--gray);
+	text-align: center;
+	margin: auto;
+}
+
+.selectedItem {
+	position: relative;
+	border: 1px solid var(--light-gray);
+	border-radius: var(--radius-sm);
+	padding: var(--space-sm);
+}
+
+.removeButton {
+	position: absolute;
+	top: var(--space-xs);
+	right: var(--space-xs);
+	background-color: var(--danger);
+	color: white;
+	border: none;
+	border-radius: var(--radius-sm);
+	padding: var(--space-xs) var(--space-sm);
+	font-size: var(--text-sm);
+	cursor: pointer;
+}
+
+.actions {
+	display: flex;
+	gap: var(--space-sm);
+}
+
+.saveButton {
+	background-color: var(--primary);
+	color: white;
+	border: none;
+	border-radius: var(--radius-sm);
+	padding: var(--space-sm) var(--space-md);
+	flex: 1;
+	cursor: pointer;
+}
+
+.clearButton {
+	background-color: var(--danger);
+	color: var(--dark);
+	border: none;
+	border-radius: var(--radius-sm);
+	padding: var(--space-sm) var(--space-md);
+	cursor: pointer;
+}
+
+.itemsGrid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+	gap: var(--space-md);
+}
+
+.itemWrapper {
+	position: relative;
+	cursor: pointer;
+}
+
+.itemWrapper.disabled {
+	opacity: 0.6;
+	cursor: not-allowed;
+	pointer-events: none;
+}
+
+.nameInput {
+	margin-bottom: var(--space-md);
+}
+
+.nameInput input {
+	width: 100%;
+	padding: var(--space-sm);
+	border: var(--border);
+	border-radius: var(--radius-sm);
+	font-family: var(--font-main);
+}
+
+.nameInput input:focus {
+	outline: none;
+	border-color: var(--primary);
+}
+
+@media (max-width: 1024px) {
+	.plannerContainer {
+		grid-template-columns: 1fr;
+		height: auto;
+	}
+
+	.plannerSection {
+		order: 2;
+	}
+
+	.gallerySection {
+		order: 1;
+	}
+}
+
+@media (max-width: 600px) {
+	.itemsGrid {
+		grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+	}
+}
