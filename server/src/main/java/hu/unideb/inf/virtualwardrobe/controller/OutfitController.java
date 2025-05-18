@@ -6,7 +6,6 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -26,6 +25,12 @@ public class OutfitController {
     @GetMapping("/outfits")
     public ResponseEntity<List<OutfitDto>> getAllOutfits() {
         return ResponseEntity.ok(outfitService.getAllOutfits());
+    }
+
+    @PutMapping("/outfits/update")
+    public ResponseEntity<?> updateOutfit(@Valid @RequestBody OutfitDto outfit) {
+        outfitService.saveOutfit(outfit);
+        return ResponseEntity.status(HttpStatus.CREATED).body("Outfit saved.");
     }
 
     @DeleteMapping("/outfits/{id}")

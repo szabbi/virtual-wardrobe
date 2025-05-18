@@ -10,8 +10,8 @@ import java.util.Collections;
 import java.util.List;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @ToString(exclude = {"items", "outfits"})
 @Entity
 @Table(name = "user")

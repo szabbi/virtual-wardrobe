@@ -4,6 +4,7 @@ import {
 	getAllItems,
 	saveItem,
 	saveItemImage,
+	updateItem,
 } from "../api/Item";
 
 export const useItems = () => {
@@ -48,6 +49,23 @@ export const useItems = () => {
 
 	const closeModal = () => {
 		setSelectedItem(null);
+		setIsUploadModalOpen(false);
+		setSelectedFile(null);
+		setPreviewImage(null);
+		setNewItem({
+			name: "",
+			size: "",
+			type: "",
+			color: "",
+			material: "",
+			pattern: "",
+			brand: "",
+			fit: "",
+			season: "",
+			occasion: "",
+			purchaseDate: "",
+			purchasePrice: "",
+		});
 		document.body.style.overflow = "auto";
 	};
 
@@ -82,15 +100,25 @@ export const useItems = () => {
 	const handleSaveItem = async () => {
 		try {
 			const formData = new FormData();
-			formData.append("file", selectedFile);
 
-			const imageResponse = await saveItemImage(formData);
+			let imageFileName = newItem.imageFile;
+			if (selectedFile) {
+				formData.append("file", selectedFile);
+				const imageResponse = await saveItemImage(formData);
+				imageFileName = imageResponse.data.filename;
+			}
+
 			const itemToSave = {
 				...newItem,
-				imageFile: imageResponse.data.filename,
+				imageFile: imageFileName,
 			};
 
-			await saveItem(itemToSave);
+			if (newItem.id) {
+				await updateItem(itemToSave);
+			} else {
+				await saveItem(itemToSave);
+			}
+
 			const response = await getAllItems();
 			setItems(response.data);
 
@@ -115,6 +143,16 @@ export const useItems = () => {
 			console.error("Error saving item:", error);
 			alert("Couldn't save item");
 		}
+	};
+
+	const handleEdit = (item) => {
+		setSelectedItem(null);
+		setNewItem(item);
+		setPreviewImage(
+			`http://localhost:8080/api/items/image/${item.imageFile}`
+		);
+		setSelectedFile(null);
+		setIsUploadModalOpen(true);
 	};
 
 	const isFormValid = () => {
@@ -147,5 +185,6 @@ export const useItems = () => {
 		handleFileChange,
 		handleSaveItem,
 		isFormValid,
+		handleEdit,
 	};
 };

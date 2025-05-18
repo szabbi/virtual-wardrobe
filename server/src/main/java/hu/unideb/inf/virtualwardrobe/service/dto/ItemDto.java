@@ -16,7 +16,6 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 public class ItemDto {
 
     private Long id;
@@ -24,7 +23,7 @@ public class ItemDto {
     @NotBlank
     private String imageFile;
 
-    @Size(max = 50, message = "The item name cannot be longer than 50 characters")
+    @Size(max = 50, message = "The item's name cannot be longer than 50 characters")
     private String name;
 
     @NotNull(message = "Sizing is required.")

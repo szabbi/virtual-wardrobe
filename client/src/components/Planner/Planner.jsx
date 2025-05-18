@@ -1,15 +1,29 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { ItemCard } from "../ItemCard/ItemCard";
 import { useItems } from "../../hooks/useItems";
 import styles from "./Planner.module.css";
 
-import { saveOutfit } from "../../api/Outfits";
+import { saveOutfit, updateOutfit } from "../../api/Outfits";
 
 const Planner = () => {
+	const location = useLocation();
+	const outfitToEdit = location.state?.outfitToEdit;
+
 	const [selectedItems, setSelectedItems] = useState([]);
 	const [outfitName, setOutfitName] = useState("");
 
 	const { items } = useItems();
+
+	useEffect(() => {
+		if (outfitToEdit && items.length > 0) {
+			setOutfitName(outfitToEdit.name || "");
+			const matched = items.filter((item) =>
+				outfitToEdit.items.includes(item.id)
+			);
+			setSelectedItems(matched);
+		}
+	}, [outfitToEdit, items]);
 
 	const handleItemClick = (item) => {
 		setSelectedItems((prev) => [...prev, item]);
@@ -30,14 +44,23 @@ const Planner = () => {
 			return;
 		}
 
-		try {
-			const outfitData = {
-				name: outfitName,
-				items: selectedItems.map((item) => item.id), // Extract just the IDs
-			};
+		const outfitData = {
+			id: outfitToEdit?.id,
+			name: outfitName,
+			items: selectedItems.map((item) => item.id),
+			imagePaths: selectedItems.map((item) => item.imagePath),
+		};
 
-			await saveOutfit(outfitData);
-			alert("Outfit saved successfully!");
+		try {
+			console.log(outfitData);
+
+			if (outfitToEdit) {
+				await updateOutfit(outfitData);
+				alert("Outfit updated successfully!");
+			} else {
+				await saveOutfit(outfitData);
+				alert("Outfit saved successfully!");
+			}
 			setSelectedItems([]);
 			setOutfitName("");
 		} catch (error) {

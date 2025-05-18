@@ -1,9 +1,9 @@
 package hu.unideb.inf.virtualwardrobe.controller;
 
 import hu.unideb.inf.virtualwardrobe.service.AuthService;
+import hu.unideb.inf.virtualwardrobe.service.JwtAuthService;
 import hu.unideb.inf.virtualwardrobe.service.dto.LoginDto;
 import hu.unideb.inf.virtualwardrobe.service.dto.RegistrationDto;
-import hu.unideb.inf.virtualwardrobe.service.implementation.JwtAuthServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -12,9 +12,6 @@ import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-import java.util.Date;
 import java.util.Map;
 
 @RestController
@@ -24,7 +21,7 @@ public class AuthController {
     @Autowired
     AuthService authService;
     @Autowired
-    JwtAuthServiceImpl jwtAuthService;
+    JwtAuthService jwtAuthService;
 
     @PostMapping("/registration")
     public ResponseEntity<?> registration(@Valid @RequestBody RegistrationDto dto) {
@@ -33,6 +30,7 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.CREATED).body("Successful registration.");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+
         }
     }
 

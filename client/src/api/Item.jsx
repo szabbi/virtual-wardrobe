@@ -24,3 +24,7 @@ export const saveItemImage = async (file) => {
 		},
 	});
 };
+
+export const updateItem = (item) => {
+	return apiItem.put("/items/update", item);
+};

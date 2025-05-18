@@ -24,6 +24,7 @@ const Gallery = () => {
 		handleSaveItem,
 		isFormValid,
 		setIsUploadModalOpen,
+		handleEdit,
 	} = useItems();
 
 	const {
@@ -34,10 +35,6 @@ const Gallery = () => {
 		setFilters,
 		clearAllFilters,
 	} = useFilters(items);
-
-	const handleEdit = (item) => {
-		console.log("Editing item:", item);
-	};
 
 	return (
 		<div className={styles.container}>
@@ -76,7 +73,7 @@ const Gallery = () => {
 			/>
 			<ItemUploadModal
 				isOpen={isUploadModalOpen}
-				onClose={() => setIsUploadModalOpen(false)}
+				onClose={closeModal}
 				previewImage={previewImage}
 				selectedFile={selectedFile}
 				newItem={newItem}

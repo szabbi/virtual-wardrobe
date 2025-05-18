@@ -16,7 +16,17 @@ export const ItemUploadModal = ({
 	onSaveItem,
 	isFormValid,
 }) => {
-	const SIZING_OPTIONS = ["XS", "S", "M", "L", "XL", "XXL"];
+	const SIZING_OPTIONS = [
+		"XS",
+		"S",
+		"M",
+		"L",
+		"XL",
+		"XXL",
+		"XXXL",
+		"OTHER",
+		"UNKNOWN",
+	];
 	const SEASON_OPTIONS = ["SPRING", "SUMMER", "FALL", "WINTER"];
 	const [startDate, setStartDate] = useState(newItem.purchaseDate || null);
 

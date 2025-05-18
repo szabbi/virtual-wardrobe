@@ -39,7 +39,7 @@ public class OutfitServiceImpl implements OutfitService {
         UserEntity currentUser = ((UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 
         List<ItemEntity> itemEntityList = itemRepository.findAllById(dto.getItems());
-        OutfitEntity entity = new OutfitEntity();
+        OutfitEntity entity;
 
         if (itemEntityList.size() != dto.getItems().size()) {
             throw new RuntimeException("One or more item ID is not valid.");
@@ -47,10 +47,23 @@ public class OutfitServiceImpl implements OutfitService {
 
         itemEntityList.forEach(item -> {
             if (!item.getUser().getId().equals(currentUser.getId())) {
-                throw new RuntimeException("Item " + item.getId() + " does not belong to the current user.");
+                throw new RuntimeException("Item " + item.getId() +
+                        " does not belong to the current user.");
 
             }
         });
+
+        if (dto.getId() != null) {
+            entity = outfitRepository.findById(dto.getId())
+                    .orElseThrow(() -> new RuntimeException("Outfit not found with ID: " + dto.getId()));
+
+            if (!entity.getUser().getId().equals(currentUser.getId())) {
+                throw new RuntimeException("You do not have permission to edit this outfit.");
+            }
+        } else {
+            entity = new OutfitEntity();
+            entity.setUser(currentUser);
+        }
 
         entity.setName(dto.getName());
         entity.setItems(itemEntityList);
@@ -72,7 +85,8 @@ public class OutfitServiceImpl implements OutfitService {
 
     @Override
     public List<OutfitDto> getAllOutfits() {
-        Long currentUserId = ((UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
+        Long currentUserId = ((UserEntity) SecurityContextHolder.getContext()
+                .getAuthentication().getPrincipal()).getId();
 
         List<OutfitEntity> outfits = outfitRepository.findAllByUserId(currentUserId);
 

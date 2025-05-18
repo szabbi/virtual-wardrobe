@@ -16,3 +16,7 @@ export const saveOutfit = async (outfitData) => {
 export const deleteOutfitById = async (id) => {
 	return apiOutfits.delete(`outfits/${id}`);
 };
+
+export const updateOutfit = async (outfitData) => {
+	return apiOutfits.put("/outfits/update", outfitData);
+};

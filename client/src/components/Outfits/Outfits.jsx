@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "./Outfits.module.css";
 import { useEffect } from "react";
 import { getAllOutfits } from "../../api/Outfits";
@@ -13,6 +14,7 @@ import { deleteOutfitById } from "../../api/Outfits";
 const Outfits = () => {
 	const [outfits, setOutfits] = useState([]);
 	const [selectedOutfit, setSelectedOutfit] = useState(null);
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		const getItems = async () => {
@@ -38,7 +40,7 @@ const Outfits = () => {
 	};
 
 	const handleEditOutfit = (outfit) => {
-		console.log("Edit outfit:", outfit);
+		navigate("/planner", { state: { outfitToEdit: outfit } });
 	};
 
 	const handleDeleteOutfit = async () => {
@@ -93,7 +95,7 @@ const Outfits = () => {
 			<OutfitModal
 				selectedOutfit={selectedOutfit}
 				onClose={closeModal}
-				onEdit={handleEditOutfit}
+				onEdit={() => handleEditOutfit(selectedOutfit)}
 				onDelete={handleDeleteOutfit}
 			/>
 		</div>

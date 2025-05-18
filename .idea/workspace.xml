@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="2f396f13-dd4b-41b5-a61a-6f541a2b7f5b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/client/src/api/Outfits.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/api/Outfits.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/BaseModal/Modal.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/BaseModal/Modal.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/OutfitItemCard/OutfitItemCard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/OutfitItemCard/OutfitItemCard.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/OutfitItemCard/OutfitItemCard.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/OutfitItemCard/OutfitItemCard.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/OutfitModal/OutfitModal.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/OutfitModal/OutfitModal.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/OutfitModal/OutfitModal.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/OutfitModal/OutfitModal.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Outfits/Outfits.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Outfits/Outfits.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Planner/Planner.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Planner/Planner.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Planner/Planner.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Planner/Planner.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/hu/unideb/inf/virtualwardrobe/service/dto/OutfitDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/hu/unideb/inf/virtualwardrobe/service/dto/OutfitDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/hu/unideb/inf/virtualwardrobe/service/implementation/OutfitServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/hu/unideb/inf/virtualwardrobe/service/implementation/OutfitServiceImpl.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 8
+}]]></component>
+  <component name="ProjectId" id="2vY6s7aqlc3Tbnh7e0dvsbfS19J" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "main",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="2f396f13-dd4b-41b5-a61a-6f541a2b7f5b" name="Changes" comment="" />
+      <created>1744309866275</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1744309866275</updated>
+      <workItem from="1744309871994" duration="4000" />
+    </task>
+    <servers />
+  </component>
+</project>
